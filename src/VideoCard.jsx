@@ -1,17 +1,19 @@
 import { Flex } from "@chakra-ui/react";
 import React from "react";
 
-function VideoCard() {
+function VideoCard({ element }) {
   return (
     <Flex
-      w="200px"
+      w="235px"
       h="200px"
-      border="2px solid red"
+      mr="20px"
+      background="rgba(0,0,0,0.3)"
       borderRadius="var(--chakra-radii-md)"
       direction="column"
       justifyContent="space-between"
     >
       image
+      {element}
       <Flex
         h="50px"
         borderTop="1px solid black"
