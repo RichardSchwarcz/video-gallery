@@ -1,48 +1,58 @@
-import { Flex, Image, Link } from "@chakra-ui/react";
 import React from "react";
+import { Flex, Image, Link, useDisclosure } from "@chakra-ui/react";
+import { SmallCloseIcon } from "@chakra-ui/icons";
+import RemoveModal from "./RemoveModal";
+import thumbnailSource from "./thumbnailSource";
 
 function VideoCard({ url }) {
-  function getYTID(url) {
-    // https://www.youtube.com/watch?v=Y7cw-ziofkY&ab_channel=CodingShiksha
-    // youtube video ID starts after `?v=` and ends before `&` => `Y7cw-ziofkY`
-    // youtube video ID is 11 characters long
-    return url.split("v=")[1].substring(0, 11);
-  }
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-  function getImageSource(id) {
-    // youtube thumbnail API
-    return `https://img.youtube.com/vi/${id}/0.jpg`;
-  }
-
-  const src = getImageSource(getYTID(url));
+  const src = thumbnailSource(url);
 
   return (
-    <Link href={url}>
+    <>
       <Flex
+        position="relative"
         w="235px"
         h="200px"
-        background="rgba(0,0,0,0.3)"
+        bg="gray.400"
         borderRadius="var(--chakra-radii-md)"
         direction="column"
         justifyContent="space-between"
       >
-        <Image
-          h="150px"
-          objectFit="cover"
-          borderTopRadius="var(--chakra-radii-md)"
-          src={src}
-          alt="thumbnail"
+        <SmallCloseIcon
+          onClick={onOpen}
+          position="absolute"
+          top="2px"
+          right="2px"
+          _hover={{
+            border: "2px",
+            borderRadius: "5px",
+            bg: "red",
+          }}
         />
-        <Flex
-          h="50px"
-          borderTop="1px solid black"
-          justifyContent="left"
-          alignItems="center"
-        >
-          Title
-        </Flex>
+        <Link href={url} isExternal>
+          <Image
+            //thumbnail size is 1280x720. To scale it properly with fixed width... (235*720)/1280 = 132.2
+            h="132.2px"
+            w="235px"
+            objectFit="cover"
+            borderTopRadius="var(--chakra-radii-md)"
+            src={src}
+            alt="thumbnail"
+          />
+          <Flex
+            h="50px"
+            borderTop="1px solid black"
+            justifyContent="left"
+            alignItems="center"
+          >
+            Title
+          </Flex>
+        </Link>
+        <RemoveModal isOpen={isOpen} onClose={onClose} />
       </Flex>
-    </Link>
+    </>
   );
 }
 
