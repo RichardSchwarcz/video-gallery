@@ -12,16 +12,17 @@ function App() {
     setUrl(e.target.value);
   }
 
-  async function handleSubmit() {
+  async function handleClick() {
     const video = {
       name: "",
       url: url,
-      topic: "",
-      folder: "",
+      tags: "",
       deleted: "false",
     };
     await postToDB(video);
     refetch();
+    const urlInput = document.getElementById("urlInput");
+    urlInput.value = "";
   }
 
   return (
@@ -29,21 +30,19 @@ function App() {
       {/* Input panel */}
       <Flex justifyContent="center">
         <Flex w="100%" maxW="1000px" m="10px">
-          <Input placeholder="Paste video URL" onChange={handleChange} />
-          <Button colorScheme="green" ml="10px" onClick={handleSubmit}>
+          <Input
+            placeholder="Paste video URL"
+            onChange={handleChange}
+            id="urlInput"
+          />
+          <Button colorScheme="green" ml="10px" onClick={handleClick}>
             Add Video
           </Button>
         </Flex>
       </Flex>
       {/* board */}
       <Box maxW="1000px" m="0 auto 0">
-        <Flex
-          w="100%"
-          background="rgba(0,0,0,0.1)"
-          borderRadius="var(--chakra-radii-md)"
-          flexWrap="wrap"
-          gap="20px"
-        >
+        <Flex w="100%" flexWrap="wrap" gap="20px">
           {videos.map((element) => {
             return <VideoCard url={element.url} key={element.id} />;
           })}
