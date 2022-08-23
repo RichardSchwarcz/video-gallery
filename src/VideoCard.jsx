@@ -16,7 +16,7 @@ function VideoCard({ url }) {
         w="235px"
         h="200px"
         bg="gray.400"
-        borderRadius="var(--chakra-radii-md)"
+        rounded="lg"
         direction="column"
         justifyContent="space-between"
       >
@@ -37,16 +37,11 @@ function VideoCard({ url }) {
             h="132.2px"
             w="235px"
             objectFit="cover"
-            borderTopRadius="var(--chakra-radii-md)"
+            roundedTop="lg"
             src={src}
             alt="thumbnail"
           />
-          <Flex
-            h="50px"
-            borderTop="1px solid black"
-            justifyContent="left"
-            alignItems="center"
-          >
+          <Flex h="50px" justifyContent="left" alignItems="center">
             Title
           </Flex>
         </Link>
