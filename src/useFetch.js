@@ -1,24 +1,24 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function useFetch() {
-  const [videos, setVideos] = useState([]);
+function useFetch(endpoint) {
+  const [data, setData] = useState([]);
 
   // fetch videos
   useEffect(() => {
     axios
-      .get("http://localhost:8000/videos")
-      .then((response) => setVideos(response.data));
+      .get(`http://localhost:8000/${endpoint}`)
+      .then((response) => setData(response.data));
   }, []);
 
   // triggered after submit, to refetch updated list of videos
   function refetch() {
     axios
-      .get("http://localhost:8000/videos")
-      .then((response) => setVideos(response.data));
+      .get(`http://localhost:8000/${endpoint}`)
+      .then((response) => setData(response.data));
   }
 
-  return { videos, refetch };
+  return { data, refetch };
 }
 
 export default useFetch;
