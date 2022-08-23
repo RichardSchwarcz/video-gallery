@@ -1,49 +1,32 @@
-import React, { useState } from "react";
+import React from "react";
 import { Flex, Input, Button, Box } from "@chakra-ui/react";
+
 import useFetch from "./useFetch";
-import postToDB from "./postToDB";
+
 import VideoCard from "./VideoCard";
+import ControlsDrawer from "./ControlsDrawer";
 
 function App() {
-  const [url, setUrl] = useState("");
-  const { videos, refetch } = useFetch();
-
-  function handleChange(e) {
-    setUrl(e.target.value);
-  }
-
-  async function handleClick() {
-    const video = {
-      name: "",
-      url: url,
-      tags: "",
-      deleted: "false",
-    };
-    await postToDB(video);
-    refetch();
-    const urlInput = document.getElementById("urlInput");
-    urlInput.value = "";
-  }
+  const { data, refetch } = useFetch("videos");
 
   return (
     <>
       {/* Input panel */}
       <Flex justifyContent="center">
-        <Flex w="100%" maxW="1000px" m="10px">
-          <Input
-            placeholder="Paste video URL"
-            onChange={handleChange}
-            id="urlInput"
-          />
-          <Button colorScheme="green" ml="10px" onClick={handleClick}>
-            Add Video
+        <ControlsDrawer refetch={refetch} />
+        <Flex w="100%" maxW="940px" mt="5" mb="5">
+          <Input placeholder="Search" />
+          {/* TODO add search icon */}
+          <Button colorScheme="green" ml="5">
+            Search
           </Button>
+          {/* TODO add filter */}
         </Flex>
       </Flex>
       {/* board */}
-      <Box maxW="1000px" m="0 auto 0">
-        <Flex w="100%" flexWrap="wrap" gap="20px">
-          {videos.map((element) => {
+      <Box maxW="1000px" m="auto">
+        <Flex w="100%" flexWrap="wrap" gap={5}>
+          {data.map((element) => {
             return <VideoCard url={element.url} key={element.id} />;
           })}
         </Flex>
