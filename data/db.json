@@ -46,23 +46,23 @@
   "tags": [
     {
       "tag": "React",
-      "color": "gray",
+      "color": "orange",
       "id": 1
     },
     {
-      "tag": "test",
-      "color": "cyan",
-      "id": 2
-    },
-    {
       "tag": "Climbing",
-      "color": "red",
+      "color": "green",
       "id": 3
     },
     {
       "tag": "Jelka",
-      "color": "gray",
+      "color": "purple",
       "id": 4
+    },
+    {
+      "tag": "Ryso",
+      "color": "red",
+      "id": 5
     }
   ]
 }

@@ -12,10 +12,10 @@ import { ChevronDownIcon, AddIcon } from "@chakra-ui/icons";
 import TagList from "./TagList";
 
 function ManageTags() {
-  const { getDisclosureProps, getButtonProps } = useDisclosure();
   const [tag, setTag] = useState("");
   const { data, refetch } = useFetch("tags");
 
+  const { getDisclosureProps, getButtonProps } = useDisclosure();
   const buttonProps = getButtonProps();
   const disclosureProps = getDisclosureProps();
 
@@ -51,7 +51,7 @@ function ManageTags() {
           id="tagInput"
         />
       </Flex>
-      <TagList {...disclosureProps} data={data} />
+      <TagList {...disclosureProps} data={data} refetch={refetch} />
     </>
   );
 }

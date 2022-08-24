@@ -28,7 +28,6 @@ function ControlsDrawer({ refetch }) {
         my="5"
         mr="5"
       />
-      {/* <HamburgerIcon onClick={onOpen} /> */}
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
