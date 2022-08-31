@@ -3,50 +3,113 @@
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=PSzCtdM20Fc&t=989s&ab_channel=JackHerrington",
-      "tags": "",
+      "tags": [
+        "NextJS",
+        "JS",
+        "React"
+      ],
       "deleted": "false",
       "id": 1
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=iiADhChRriM&ab_channel=WebDevSimplified",
-      "tags": "",
+      "tags": [
+        "JS"
+      ],
       "deleted": "false",
       "id": 2
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=m7DoTG4Myhs&ab_channel=AdamOndra",
-      "tags": "",
+      "tags": [
+        "Climbing"
+      ],
       "deleted": "false",
       "id": 3
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=ukecIFE6Now&ab_channel=JackHerrington",
-      "tags": "",
+      "tags": [
+        "React"
+      ],
       "deleted": "false",
       "id": 4
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=Q4dos7-gX68&t=1085s&ab_channel=JackHerrington",
-      "tags": "",
+      "tags": [
+        "React"
+      ],
       "deleted": "false",
       "id": 5
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=JaM2rExmmqs&ab_channel=JackHerrington",
-      "tags": "",
+      "tags": [
+        "React"
+      ],
       "deleted": "false",
       "id": 6
+    },
+    {
+      "name": "",
+      "url": "https://www.youtube.com/watch?v=S2L4fatK0Ek&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=2&ab_channel=JackHerrington",
+      "tags": [],
+      "deleted": "false",
+      "id": 7
+    },
+    {
+      "name": "",
+      "url": "https://www.youtube.com/watch?v=8QtiqXew2QQ&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=4&ab_channel=JackHerrington",
+      "tags": [],
+      "deleted": "false",
+      "id": 8
+    },
+    {
+      "name": "",
+      "url": "https://www.youtube.com/watch?v=z8lDwLKthr8&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=5&ab_channel=JackHerrington",
+      "tags": [],
+      "deleted": "false",
+      "id": 9
+    },
+    {
+      "name": "",
+      "url": "https://www.youtube.com/watch?v=ZD7viwwRLAw&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=6&ab_channel=JackHerrington",
+      "tags": [],
+      "deleted": "false",
+      "id": 10
+    },
+    {
+      "name": "",
+      "url": "https://www.youtube.com/watch?v=emhwHjAsyss&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=7&ab_channel=JackHerrington",
+      "tags": [],
+      "deleted": "false",
+      "id": 11
+    },
+    {
+      "name": "",
+      "url": "https://www.youtube.com/watch?v=nGZCL6Wd_zQ&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=8&ab_channel=JackHerrington",
+      "tags": [],
+      "deleted": "false",
+      "id": 12
+    },
+    {
+      "name": "",
+      "url": "https://www.youtube.com/watch?v=NJxagi7K-D8&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=9&ab_channel=JackHerrington",
+      "tags": [],
+      "deleted": "false",
+      "id": 13
     }
   ],
   "tags": [
     {
       "tag": "React",
-      "color": "orange",
+      "color": "blue",
       "id": 1
     },
     {
@@ -55,13 +118,13 @@
       "id": 3
     },
     {
-      "tag": "Jelka",
-      "color": "purple",
+      "tag": "NextJS",
+      "color": "gray",
       "id": 4
     },
     {
-      "tag": "Ryso",
-      "color": "red",
+      "tag": "JS",
+      "color": "orange",
       "id": 5
     }
   ]

@@ -11,7 +11,7 @@ function App() {
 
   return (
     <>
-      {/* Input panel */}
+      {/* Search panel */}
       <Flex justifyContent="center">
         <ControlsDrawer refetch={refetch} />
         <Flex w="100%" maxW="940px" mt="5" mb="5">
@@ -24,10 +24,20 @@ function App() {
         </Flex>
       </Flex>
       {/* board */}
-      <Box maxW="1000px" m="auto">
+      <Box maxW="1000px" mx="auto" mb="5">
         <Flex w="100%" flexWrap="wrap" gap={5}>
           {data.map((element) => {
-            return <VideoCard url={element.url} key={element.id} />;
+            if (element.deleted === "false") {
+              return (
+                <VideoCard
+                  key={element.url}
+                  element={element}
+                  refetch={refetch}
+                />
+              );
+            } else {
+              return null;
+            }
           })}
         </Flex>
       </Box>

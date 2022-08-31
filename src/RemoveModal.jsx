@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 
 function RemoveModal(props) {
-  const { isOpen, onClose } = props;
+  const { isOpen, onClose, onRemove, element } = props;
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -20,7 +20,7 @@ function RemoveModal(props) {
           <ModalCloseButton />
           <ModalBody>Do you want to move this video to trash?</ModalBody>
           <ModalFooter>
-            <Button colorScheme="red" mr={3} onClick={onClose}>
+            <Button colorScheme="red" mr={3} onClick={() => onRemove(element)}>
               Remove
             </Button>
             <Button variant="ghost" onClick={onClose}>

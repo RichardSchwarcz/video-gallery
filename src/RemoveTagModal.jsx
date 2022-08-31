@@ -20,7 +20,9 @@ function RemoveTagModal(props) {
     refetch();
     onClose();
   }
-
+  // axios base
+  // package json proxy
+  // setup proxy.js
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} blockScrollOnMount={false}>
