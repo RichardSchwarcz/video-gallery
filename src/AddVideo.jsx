@@ -25,7 +25,7 @@ function AddVideo({ refetch }) {
     const video = {
       name: "",
       url: url,
-      tags: "",
+      tags: [],
       deleted: "false",
     };
     await postToDB(video, "videos");

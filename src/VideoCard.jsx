@@ -1,37 +1,51 @@
 import React from "react";
-import { Flex, Image, Link, useDisclosure } from "@chakra-ui/react";
-import { SmallCloseIcon } from "@chakra-ui/icons";
+import axios from "axios";
+import { Flex, Image, Link, Tag, useDisclosure } from "@chakra-ui/react";
+
 import RemoveModal from "./RemoveModal";
 import thumbnailSource from "./thumbnailSource";
+import VideoMenu from "./VideoMenu";
+import useFetch from "./useFetch";
 
-function VideoCard({ url }) {
+function VideoCard({ element, refetch }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { data, isLoading } = useFetch("tags");
 
-  const src = thumbnailSource(url);
+  const src = thumbnailSource(element.url);
+
+  async function remove(element) {
+    await axios.put(`http://localhost:8000/videos/${element.id}`, {
+      ...element,
+      deleted: "true",
+    });
+    console.log(element.id);
+    await refetch();
+  }
+
+  function findTag(tags, videoTag) {
+    if (!isLoading) {
+      const tagColorObj = tags.find((tag) => {
+        if (tag.tag === videoTag) {
+          return tag;
+        } else {
+          return null;
+        }
+      });
+      return tagColorObj.color;
+    }
+  }
 
   return (
     <>
       <Flex
-        position="relative"
         w="235px"
         h="200px"
         bg="gray.400"
         rounded="lg"
         direction="column"
-        justifyContent="space-between"
+        justifyContent=""
       >
-        <SmallCloseIcon
-          onClick={onOpen}
-          position="absolute"
-          top="2px"
-          right="2px"
-          _hover={{
-            border: "2px",
-            borderRadius: "5px",
-            bg: "red",
-          }}
-        />
-        <Link href={url} isExternal>
+        <Link href={element.url} isExternal>
           <Image
             //thumbnail size is 1280x720. To scale it properly with fixed width... (235*720)/1280 = 132.2
             h="132.2px"
@@ -41,11 +55,36 @@ function VideoCard({ url }) {
             src={src}
             alt="thumbnail"
           />
-          <Flex h="50px" justifyContent="left" alignItems="center">
-            Title
-          </Flex>
         </Link>
-        <RemoveModal isOpen={isOpen} onClose={onClose} />
+        <Flex
+          h="45.2px"
+          mx="2"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          Title
+          <VideoMenu element={element} refetch={refetch} onOpen={onOpen} />
+        </Flex>
+        <Flex mx="2" pb="2">
+          {element.tags.map((videoTag) => {
+            return (
+              <Tag
+                key={videoTag}
+                colorScheme={findTag(data, videoTag)}
+                mx="0.5"
+                size="sm"
+              >
+                {videoTag}
+              </Tag>
+            );
+          })}
+        </Flex>
+        <RemoveModal
+          isOpen={isOpen}
+          onClose={onClose}
+          onRemove={remove}
+          element={element}
+        />
       </Flex>
     </>
   );
