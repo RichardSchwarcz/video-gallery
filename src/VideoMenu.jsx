@@ -16,7 +16,8 @@ import { MdMoreVert } from "react-icons/md";
 import { DeleteIcon } from "@chakra-ui/icons";
 import useFetch from "./useFetch";
 
-function VideoMenu({ element, refetch, onOpen }) {
+function VideoMenu(props) {
+  const { element, refetch, onOpen, handleUpdate } = props;
   const { data: tagsData } = useFetch("tags");
 
   async function putTag(tag, element) {
@@ -27,18 +28,25 @@ function VideoMenu({ element, refetch, onOpen }) {
     refetch(); // videos
   }
 
+  //TODO rename variables
   function handleClick(tag, element) {
     const dbTags = element.tags.slice();
     if (dbTags.includes(tag)) {
       const filtered = dbTags.filter((item) => item !== tag);
+      // side effect in VideoCard. It updates state
+      handleUpdate(filtered);
       putTag(filtered, element);
     } else {
       dbTags.push(tag);
+      // side effect in VideoCard. It updates state
+      handleUpdate(dbTags);
       putTag(dbTags, element);
     }
   }
 
   return (
+    // TODO chakra should remember which tags are assigned to video and
+    // keep checkmark next to each tag
     <Menu closeOnSelect={false} isLazy>
       <MenuButton
         as={IconButton}

@@ -4,9 +4,9 @@
       "name": "",
       "url": "https://www.youtube.com/watch?v=PSzCtdM20Fc&t=989s&ab_channel=JackHerrington",
       "tags": [
-        "NextJS",
-        "JS",
-        "React"
+        "React",
+        "Climbing",
+        "NextJS"
       ],
       "deleted": "false",
       "id": 1
@@ -15,94 +15,132 @@
       "name": "",
       "url": "https://www.youtube.com/watch?v=iiADhChRriM&ab_channel=WebDevSimplified",
       "tags": [
-        "JS"
+        "NextJS",
+        "test",
+        "React",
+        "JS",
+        "newTag"
       ],
-      "deleted": "false",
+      "deleted": "true",
       "id": 2
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=m7DoTG4Myhs&ab_channel=AdamOndra",
       "tags": [
-        "Climbing"
+        "Climbing",
+        "React",
+        "guttenTag",
+        "newTag"
       ],
-      "deleted": "false",
+      "deleted": "true",
       "id": 3
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=ukecIFE6Now&ab_channel=JackHerrington",
       "tags": [
-        "React"
+        "React",
+        "Climbing",
+        "newTag"
       ],
-      "deleted": "false",
+      "deleted": "true",
       "id": 4
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=Q4dos7-gX68&t=1085s&ab_channel=JackHerrington",
       "tags": [
-        "React"
+        "React",
+        "Climbing",
+        "NextJS"
       ],
-      "deleted": "false",
+      "deleted": "true",
       "id": 5
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=JaM2rExmmqs&ab_channel=JackHerrington",
       "tags": [
-        "React"
+        "React",
+        "NextJS",
+        "Climbing"
       ],
-      "deleted": "false",
+      "deleted": "true",
       "id": 6
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=S2L4fatK0Ek&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=2&ab_channel=JackHerrington",
-      "tags": [],
-      "deleted": "false",
+      "tags": [
+        "React",
+        "Climbing",
+        "NextJS"
+      ],
+      "deleted": "true",
       "id": 7
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=8QtiqXew2QQ&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=4&ab_channel=JackHerrington",
-      "tags": [],
-      "deleted": "false",
+      "tags": [
+        "test",
+        "NextJS",
+        "JS",
+        "React"
+      ],
+      "deleted": "true",
       "id": 8
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=z8lDwLKthr8&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=5&ab_channel=JackHerrington",
-      "tags": [],
-      "deleted": "false",
+      "tags": [
+        "Climbing"
+      ],
+      "deleted": "true",
       "id": 9
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=ZD7viwwRLAw&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=6&ab_channel=JackHerrington",
-      "tags": [],
-      "deleted": "false",
+      "tags": [
+        "React",
+        "Climbing",
+        "NextJS",
+        "JS"
+      ],
+      "deleted": "true",
       "id": 10
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=emhwHjAsyss&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=7&ab_channel=JackHerrington",
-      "tags": [],
-      "deleted": "false",
+      "tags": [
+        "React",
+        "JS"
+      ],
+      "deleted": "true",
       "id": 11
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=nGZCL6Wd_zQ&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=8&ab_channel=JackHerrington",
-      "tags": [],
-      "deleted": "false",
+      "tags": [
+        "React",
+        "Climbing"
+      ],
+      "deleted": "true",
       "id": 12
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=NJxagi7K-D8&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=9&ab_channel=JackHerrington",
-      "tags": [],
-      "deleted": "false",
+      "tags": [
+        "React",
+        "Climbing"
+      ],
+      "deleted": "true",
       "id": 13
     }
   ],
@@ -126,6 +164,26 @@
       "tag": "JS",
       "color": "orange",
       "id": 5
+    },
+    {
+      "tag": "test",
+      "color": "red",
+      "id": 6
+    },
+    {
+      "tag": "newTag",
+      "color": "blue",
+      "id": 7
+    },
+    {
+      "tag": "guttenTag",
+      "color": "yellow",
+      "id": 8
+    },
+    {
+      "tag": "M",
+      "color": "gray",
+      "id": 9
     }
   ]
 }

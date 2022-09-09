@@ -7,15 +7,10 @@ function useFetch(endpoint) {
 
   // fetch videos
   useEffect(() => {
-    const fetchFn = () => {
-      setIsLoading(true);
-      axios
-        .get(`http://localhost:8000/${endpoint}`)
-        .then((response) => setData(response.data))
-        .finally(() => setIsLoading(false));
-    };
-
-    fetchFn();
+    axios
+      .get(`http://localhost:8000/${endpoint}`)
+      .then((response) => setData(response.data))
+      .finally(() => setIsLoading(false));
   }, []);
 
   // triggered after submit, to refetch updated list of videos
