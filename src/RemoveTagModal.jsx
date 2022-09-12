@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import { useDeleteTags } from "./useTags";
 
 import {
   Modal,
@@ -12,14 +12,14 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-function RemoveTagModal(props) {
-  const { isOpen, onClose, elementId, refetch } = props;
+function RemoveTagModal({ isOpen, onClose, elementId }) {
+  const { mutate } = useDeleteTags();
 
-  async function handleDelete(elementId) {
-    await axios.delete(`http://localhost:8000/tags/${elementId}`);
-    refetch();
+  function handleDelete(elementId) {
+    mutate(elementId);
     onClose();
   }
+
   // axios base
   // package json proxy
   // setup proxy.js

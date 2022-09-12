@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import postToDB from "./postToDB";
-import useFetch from "./useFetch";
+import { useAddTag } from "./useTags";
 import {
   Button,
   Flex,
@@ -13,19 +12,18 @@ import TagList from "./TagList";
 
 function ManageTags() {
   const [tag, setTag] = useState("");
-  const { data, refetch } = useFetch("tags");
+  const { mutate: mutateAddTag } = useAddTag();
 
   const { getDisclosureProps, getButtonProps } = useDisclosure();
   const buttonProps = getButtonProps();
   const disclosureProps = getDisclosureProps();
 
-  async function handleClick() {
+  function handleClick() {
     let tagObj = {
       tag: tag,
       color: "gray",
     };
-    await postToDB(tagObj, "tags");
-    refetch();
+    mutateAddTag(tagObj);
     const tagInput = document.getElementById("tagInput");
     tagInput.value = "";
   }
@@ -51,7 +49,7 @@ function ManageTags() {
           id="tagInput"
         />
       </Flex>
-      <TagList {...disclosureProps} data={data} refetch={refetch} />
+      <TagList {...disclosureProps} />
     </>
   );
 }

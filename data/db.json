@@ -8,7 +8,7 @@
         "Climbing",
         "NextJS"
       ],
-      "deleted": "false",
+      "deleted": "true",
       "id": 1
     },
     {
@@ -142,6 +142,53 @@
       ],
       "deleted": "true",
       "id": 13
+    },
+    {
+      "name": "",
+      "url": "https://www.youtube.com/watch?v=A3gN4ji5p6E&list=PLC3y8-rFHvwjTELCrPrcZlo6blLBUspd2&index=8&ab_channel=Codevolution",
+      "tags": [
+        "Climbing",
+        "React"
+      ],
+      "deleted": "true",
+      "id": 14
+    },
+    {
+      "name": "",
+      "url": "https://www.youtube.com/watch?v=NYCG1o38oEQ&list=PLC3y8-rFHvwjTELCrPrcZlo6blLBUspd2&index=21&ab_channel=Codevolution",
+      "tags": [
+        "JS"
+      ],
+      "deleted": "false",
+      "id": 15
+    },
+    {
+      "name": "",
+      "url": "https://www.youtube.com/watch?v=ldg3QIT53pI&list=PLC3y8-rFHvwjTELCrPrcZlo6blLBUspd2&index=22&ab_channel=Codevolution",
+      "tags": [],
+      "deleted": "true",
+      "id": 16
+    },
+    {
+      "name": "",
+      "url": "https://www.youtube.com/watch?v=XI0SN5AI6YA&list=PLC3y8-rFHvwjTELCrPrcZlo6blLBUspd2&index=23&ab_channel=Codevolution",
+      "tags": [],
+      "deleted": "true",
+      "id": 17
+    },
+    {
+      "name": "",
+      "url": "https://www.youtube.com/watch?v=Cyyh9G5E6II&list=PLC3y8-rFHvwjTELCrPrcZlo6blLBUspd2&index=25&ab_channel=Codevolution",
+      "tags": [],
+      "deleted": "true",
+      "id": 18
+    },
+    {
+      "name": "",
+      "url": "https://www.youtube.com/watch?v=HH68tHPq7tA&list=PLC3y8-rFHvwjTELCrPrcZlo6blLBUspd2&index=17&ab_channel=Codevolution",
+      "tags": [],
+      "deleted": "true",
+      "id": 19
     }
   ],
   "tags": [
@@ -179,11 +226,6 @@
       "tag": "guttenTag",
       "color": "yellow",
       "id": 8
-    },
-    {
-      "tag": "M",
-      "color": "gray",
-      "id": 9
     }
   ]
 }

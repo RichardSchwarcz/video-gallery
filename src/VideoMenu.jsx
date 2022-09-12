@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 
 import {
   IconButton,
@@ -14,39 +13,31 @@ import {
 } from "@chakra-ui/react";
 import { MdMoreVert } from "react-icons/md";
 import { DeleteIcon } from "@chakra-ui/icons";
-import useFetch from "./useFetch";
+import { useGetTags } from "./useTags";
+import { useGetVideo, useUpdateTags } from "./useVideo";
 
-function VideoMenu(props) {
-  const { element, refetch, onOpen, handleUpdate } = props;
-  const { data: tagsData } = useFetch("tags");
+function VideoMenu({ onOpen, elementID, tags }) {
+  const { data: tagsData } = useGetTags();
+  const { refetch } = useGetVideo();
+  const { mutate: updateTags } = useUpdateTags();
+  console.log(tags);
 
-  async function putTag(tag, element) {
-    await axios.put(`http://localhost:8000/videos/${element.id}`, {
-      ...element,
-      tags: tag,
-    });
-    refetch(); // videos
-  }
-
-  //TODO rename variables
-  function handleClick(tag, element) {
-    const dbTags = element.tags.slice();
-    if (dbTags.includes(tag)) {
-      const filtered = dbTags.filter((item) => item !== tag);
-      // side effect in VideoCard. It updates state
-      handleUpdate(filtered);
-      putTag(filtered, element);
+  function handleUpdateTags(newTag) {
+    refetch();
+    const oldTags = tags.slice();
+    if (oldTags.includes(newTag)) {
+      const updatedTags = oldTags.filter((item) => item !== newTag);
+      updateTags({ updatedTags, elementID });
     } else {
-      dbTags.push(tag);
-      // side effect in VideoCard. It updates state
-      handleUpdate(dbTags);
-      putTag(dbTags, element);
+      oldTags.push(newTag);
+      const updatedTags = oldTags;
+      updateTags({ updatedTags, elementID });
     }
   }
 
   return (
     // TODO chakra should remember which tags are assigned to video and
-    // keep checkmark next to each tag
+    // ! keep checkmark next to each tag
     <Menu closeOnSelect={false} isLazy>
       <MenuButton
         as={IconButton}
@@ -62,14 +53,15 @@ function VideoMenu(props) {
         >
           Remove
         </MenuItem>
+        <MenuItem onClick={() => refetch()}>Update</MenuItem>
         <MenuDivider />
         <MenuOptionGroup title="Tags" type="checkbox">
-          {tagsData.map((tag) => {
+          {tagsData?.data.map((tag) => {
             return (
               <MenuItemOption
                 value={tag.tag}
                 key={tag.tag}
-                onClick={() => handleClick(tag.tag, element)}
+                onClick={() => handleUpdateTags(tag.tag)}
               >
                 <Tag colorScheme={tag.color}>{tag.tag}</Tag>
               </MenuItemOption>

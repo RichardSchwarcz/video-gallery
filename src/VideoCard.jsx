@@ -1,13 +1,14 @@
 import React, { useRef, useState, useLayoutEffect } from "react";
-import axios from "axios";
 import { Flex, Image, Link, Tag, useDisclosure } from "@chakra-ui/react";
 
 import RemoveModal from "./RemoveModal";
 import thumbnailSource from "./thumbnailSource";
 import VideoMenu from "./VideoMenu";
-import useFetch from "./useFetch";
+import { useRemoveVideo } from "./useVideo";
+import { useGetTags } from "./useTags";
+import { useEffect } from "react";
 
-function VideoCard({ element, refetch }) {
+function VideoCard({ element }) {
   const tagsCopy = element.tags.slice();
 
   const [counter, setCounter] = useState(false);
@@ -17,14 +18,12 @@ function VideoCard({ element, refetch }) {
   const countbox = useRef(null);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data, isLoading } = useFetch("tags");
+  const { data: tagsData, isLoading } = useGetTags();
+  const { mutate: mutateRemoveVideo } = useRemoveVideo();
 
-  // SIDE EFFECT
-  // handle refetch caused by adding or removing tag
-  // function is called in VideoMenu component
-  function handleUpdate(updatedTags) {
-    setVisibleTags(updatedTags);
-  }
+  useEffect(() => {
+    setVisibleTags(tagsCopy);
+  }, [element.tags]);
 
   useLayoutEffect(() => {
     handleOverflow();
@@ -60,14 +59,6 @@ function VideoCard({ element, refetch }) {
 
   function countNotVisible() {
     return tagsCopy.length - visibleTags.length;
-  }
-
-  async function remove(element) {
-    await axios.put(`http://localhost:8000/videos/${element.id}`, {
-      ...element,
-      deleted: "true",
-    });
-    await refetch();
   }
 
   function findTagColor(fetchedTags, videoTag) {
@@ -106,9 +97,9 @@ function VideoCard({ element, refetch }) {
           Title
           <VideoMenu
             element={element}
-            refetch={refetch}
             onOpen={onOpen}
-            handleUpdate={handleUpdate}
+            elementID={element.id}
+            tags={element.tags}
           />
         </Flex>
         <Flex mx="2" pb="2">
@@ -117,7 +108,7 @@ function VideoCard({ element, refetch }) {
               return (
                 <Tag
                   key={videoTag}
-                  colorScheme={findTagColor(data, videoTag)}
+                  colorScheme={findTagColor(tagsData?.data, videoTag)}
                   mx="0.5"
                   size="sm"
                   flex="none"
@@ -136,8 +127,8 @@ function VideoCard({ element, refetch }) {
         <RemoveModal
           isOpen={isOpen}
           onClose={onClose}
-          onRemove={remove}
-          element={element}
+          onRemove={mutateRemoveVideo}
+          elementID={element.id}
         />
       </Flex>
     </>

@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 
-function ControlsDrawer({ refetch }) {
+function ControlsDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -36,7 +36,7 @@ function ControlsDrawer({ refetch }) {
 
           <DrawerBody>
             <Stack spacing="2">
-              <AddVideo refetch={refetch} />
+              <AddVideo />
               <ManageTags />
             </Stack>
           </DrawerBody>

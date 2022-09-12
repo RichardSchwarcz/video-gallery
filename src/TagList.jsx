@@ -4,19 +4,22 @@ import { Flex, IconButton, Tag, Box, useDisclosure } from "@chakra-ui/react";
 import { SmallCloseIcon } from "@chakra-ui/icons";
 import TagMenu from "./TagMenu";
 import RemoveTagModal from "./RemoveTagModal";
+import { useGetTags } from "./useTags";
 
-function TagList({ data, refetch, ...disclosureProps }) {
+function TagList({ ...disclosureProps }) {
+  const { data: tagsData } = useGetTags();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [elementId, setElementId] = useState();
 
-  function handleClick(id) {
+  function handleRemove(id) {
     setElementId(id);
     onOpen();
   }
 
   return (
     <Box {...disclosureProps}>
-      {data.map((element) => {
+      {tagsData?.data.map((element) => {
         return (
           <Flex
             key={element.tag}
@@ -31,23 +34,18 @@ function TagList({ data, refetch, ...disclosureProps }) {
                 variant="ghost"
                 size="xs"
                 // TODO on hover Red
-                onClick={() => handleClick(element.id)}
+                onClick={() => handleRemove(element.id)}
               />
               <Tag colorScheme={element.color} w="fit-content">
                 {element.tag}
               </Tag>
             </Flex>
             {/* Drop down menu next to tag */}
-            <TagMenu element={element} refetch={refetch} />
+            <TagMenu element={element} />
           </Flex>
         );
       })}
-      <RemoveTagModal
-        isOpen={isOpen}
-        onClose={onClose}
-        elementId={elementId}
-        refetch={refetch}
-      />
+      <RemoveTagModal isOpen={isOpen} onClose={onClose} elementId={elementId} />
     </Box>
   );
 }

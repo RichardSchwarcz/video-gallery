@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { useChangeColor, useRenameTag } from "./useTags";
 
 import {
   IconButton,
@@ -15,8 +15,11 @@ import {
 } from "@chakra-ui/react";
 import { ChevronDownIcon, CheckIcon } from "@chakra-ui/icons";
 
-function TagMenu({ element, refetch }) {
+function TagMenu({ element }) {
   const [rename, setRename] = useState("");
+  const { mutate: mutateRename } = useRenameTag(element);
+  const { mutate: mutateColor } = useChangeColor(element);
+
   const colors = [
     "red",
     "green",
@@ -28,22 +31,6 @@ function TagMenu({ element, refetch }) {
     "teal",
     "cyan",
   ];
-
-  async function changeColor(color) {
-    await axios.put(`http://localhost:8000/tags/${element.id}`, {
-      ...element,
-      color: color,
-    });
-    refetch();
-  }
-
-  async function putRename(rename) {
-    await axios.put(`http://localhost:8000/tags/${element.id}`, {
-      ...element,
-      tag: rename,
-    });
-    refetch();
-  }
 
   return (
     <Menu closeOnSelect={false} isLazy>
@@ -59,6 +46,8 @@ function TagMenu({ element, refetch }) {
             px="4"
             variant="flushed"
             placeholder="Rename"
+            //TODO prefill existing name
+            // on click close popup
             onChange={(e) => setRename(e.target.value)}
           />
           <InputRightElement>
@@ -66,7 +55,7 @@ function TagMenu({ element, refetch }) {
               icon={<CheckIcon />}
               size="xs"
               variant="ghost"
-              onClick={() => putRename(rename)}
+              onClick={() => mutateRename(rename)}
             />
           </InputRightElement>
         </InputGroup>
@@ -76,10 +65,13 @@ function TagMenu({ element, refetch }) {
             return (
               <MenuItemOption
                 value={color}
-                onClick={() => changeColor(color)}
+                onClick={() => mutateColor(color)}
                 key={color}
               >
-                <Tag colorScheme={color}>{color}</Tag>
+                <Tag colorScheme={color} size="sm" mx="4" mt="2px">
+                  {element.tag}
+                </Tag>
+                {color}
               </MenuItemOption>
             );
           })}
