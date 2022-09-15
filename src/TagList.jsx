@@ -1,19 +1,23 @@
 import React, { useState } from "react";
+import { useGet } from "./useQueries";
 
 import { Flex, IconButton, Tag, Box, useDisclosure } from "@chakra-ui/react";
 import { SmallCloseIcon } from "@chakra-ui/icons";
 import TagMenu from "./TagMenu";
 import RemoveTagModal from "./RemoveTagModal";
-import { useGetTags } from "./useTags";
 
 function TagList({ ...disclosureProps }) {
-  const { data: tagsData } = useGetTags();
+  const { data: tagsData } = useGet({
+    enableQuery: false,
+    key: "tags",
+    endpoint: "tags",
+  });
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [elementId, setElementId] = useState();
+  const [elementID, setElementID] = useState();
 
-  function handleRemove(id) {
-    setElementId(id);
+  function getTagID(id) {
+    setElementID(id);
     onOpen();
   }
 
@@ -34,7 +38,7 @@ function TagList({ ...disclosureProps }) {
                 variant="ghost"
                 size="xs"
                 // TODO on hover Red
-                onClick={() => handleRemove(element.id)}
+                onClick={() => getTagID(element.id)}
               />
               <Tag colorScheme={element.color} w="fit-content">
                 {element.tag}
@@ -45,7 +49,7 @@ function TagList({ ...disclosureProps }) {
           </Flex>
         );
       })}
-      <RemoveTagModal isOpen={isOpen} onClose={onClose} elementId={elementId} />
+      <RemoveTagModal isOpen={isOpen} onClose={onClose} elementId={elementID} />
     </Box>
   );
 }

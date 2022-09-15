@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useAddTag } from "./useTags";
+import { usePost } from "./useQueries";
+
 import {
   Button,
   Flex,
@@ -12,13 +13,13 @@ import TagList from "./TagList";
 
 function ManageTags() {
   const [tag, setTag] = useState("");
-  const { mutate: mutateAddTag } = useAddTag();
+  const { mutate: mutateAddTag } = usePost({ endpoint: "tags", key: "tags" });
 
   const { getDisclosureProps, getButtonProps } = useDisclosure();
   const buttonProps = getButtonProps();
   const disclosureProps = getDisclosureProps();
 
-  function handleClick() {
+  function handleAddTag() {
     let tagObj = {
       tag: tag,
       color: "gray",
@@ -40,7 +41,7 @@ function ManageTags() {
       </Button>
 
       <Flex {...disclosureProps}>
-        <IconButton icon={<AddIcon />} onClick={handleClick} variant="ghost" />
+        <IconButton icon={<AddIcon />} onClick={handleAddTag} variant="ghost" />
         <Input
           ml="4"
           variant="flushed"

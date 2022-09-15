@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 
 function RemoveModal(props) {
+  // TODO instead of modal use chakra alert dialog
   const { isOpen, onClose, onRemove, elementID } = props;
   return (
     <>

@@ -1,12 +1,10 @@
-import React, { useRef, useState, useLayoutEffect } from "react";
-import { Flex, Image, Link, Tag, useDisclosure } from "@chakra-ui/react";
+import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
+import { useDelete, useGet } from "./useQueries";
 
+import { Flex, Image, Link, Tag, useDisclosure } from "@chakra-ui/react";
 import RemoveModal from "./RemoveModal";
 import thumbnailSource from "./thumbnailSource";
 import VideoMenu from "./VideoMenu";
-import { useRemoveVideo } from "./useVideo";
-import { useGetTags } from "./useTags";
-import { useEffect } from "react";
 
 function VideoCard({ element }) {
   const tagsCopy = element.tags.slice();
@@ -14,46 +12,53 @@ function VideoCard({ element }) {
   const [counter, setCounter] = useState(false);
   const [visibleTags, setVisibleTags] = useState(tagsCopy);
 
-  const tagbox = useRef(null);
-  const countbox = useRef(null);
+  const tagBox = useRef(null);
+  const countBox = useRef(null);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data: tagsData, isLoading } = useGetTags();
-  const { mutate: mutateRemoveVideo } = useRemoveVideo();
+
+  const { data: tagsData, isLoading: tagsAreLoading } = useGet({
+    key: "tags",
+    endpoint: "tags",
+    enableQuery: true,
+  });
+
+  const { mutate: mutateRemoveVideo } = useDelete({
+    key: "videos",
+    endpoint: "videos",
+  });
 
   useEffect(() => {
-    setVisibleTags(tagsCopy);
+    setVisibleTags(element.tags);
   }, [element.tags]);
 
   useLayoutEffect(() => {
+    function handleOverflow() {
+      const overflow = checkOverflow(
+        getRefBoxWidth(tagBox),
+        getRefBoxWidth(countBox)
+      );
+      if (overflow) {
+        setVisibleTags(visibleTags.slice(0, -1));
+        setCounter(true);
+      }
+    }
     handleOverflow();
-    //eslint-disable-next-line
   }, [visibleTags, counter]);
 
-  function checkOverflow(tagboxWidth, countboxWidth = 0) {
-    if (tagboxWidth + countboxWidth > 219) {
+  function checkOverflow(tagBoxWidth, countBoxWidth = 0) {
+    if (tagBoxWidth + countBoxWidth > 219) {
       return true;
     } else {
       return false;
     }
   }
 
-  function getRefboxWidth(refbox) {
-    if (refbox.current !== null) {
-      return refbox.current.offsetWidth;
+  function getRefBoxWidth(refBox) {
+    if (refBox.current !== null) {
+      return refBox.current.offsetWidth;
     } else {
       return 0;
-    }
-  }
-
-  function handleOverflow() {
-    const overflow = checkOverflow(
-      getRefboxWidth(tagbox),
-      getRefboxWidth(countbox)
-    );
-    if (overflow) {
-      setVisibleTags(visibleTags.slice(0, -1));
-      setCounter(true);
     }
   }
 
@@ -62,16 +67,16 @@ function VideoCard({ element }) {
   }
 
   function findTagColor(fetchedTags, videoTag) {
-    if (!isLoading) {
-      const matchingTag = fetchedTags.find((tag) => {
-        if (tag.tag === videoTag) {
-          return tag;
-        } else {
-          return null;
-        }
-      });
-      return matchingTag.color;
-    }
+    // if (!tagsAreLoading) {
+    //   const matchingTag = fetchedTags.find((tag) => {
+    //     if (tag.tag === videoTag) {
+    //       return tag;
+    //     } else {
+    //       return null;
+    //     }
+    //   });
+    //   return matchingTag.color;
+    // }
   }
 
   return (
@@ -103,7 +108,7 @@ function VideoCard({ element }) {
           />
         </Flex>
         <Flex mx="2" pb="2">
-          <Flex ref={tagbox}>
+          <Flex ref={tagBox}>
             {visibleTags.map((videoTag) => {
               return (
                 <Tag
@@ -119,7 +124,7 @@ function VideoCard({ element }) {
             })}
           </Flex>
           {counter && (
-            <Flex ref={countbox}>
+            <Flex ref={countBox}>
               <Tag size="sm" mx="0.5">{`+${countNotVisible()}`}</Tag>
             </Flex>
           )}

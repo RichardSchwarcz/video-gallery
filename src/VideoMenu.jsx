@@ -1,4 +1,5 @@
 import React from "react";
+import { useGet, useUpdate } from "./useQueries";
 
 import {
   IconButton,
@@ -13,25 +14,34 @@ import {
 } from "@chakra-ui/react";
 import { MdMoreVert } from "react-icons/md";
 import { DeleteIcon } from "@chakra-ui/icons";
-import { useGetTags } from "./useTags";
-import { useGetVideo, useUpdateTags } from "./useVideo";
 
 function VideoMenu({ onOpen, elementID, tags }) {
-  const { data: tagsData } = useGetTags();
-  const { refetch } = useGetVideo();
-  const { mutate: updateTags } = useUpdateTags();
-  console.log(tags);
+  const { data: tagsData } = useGet({
+    enableQuery: false,
+    key: "tags",
+    endpoint: "tags",
+  });
+
+  const { mutate: mutateUpdateTagList } = useUpdate({
+    key: "videos",
+    endpoint: "videos",
+    invalidate: "true",
+  });
 
   function handleUpdateTags(newTag) {
-    refetch();
     const oldTags = tags.slice();
+
     if (oldTags.includes(newTag)) {
-      const updatedTags = oldTags.filter((item) => item !== newTag);
-      updateTags({ updatedTags, elementID });
+      const updatedTagsArray = oldTags.filter((item) => item !== newTag);
+      const data = { tags: updatedTagsArray };
+
+      mutateUpdateTagList({ data: data, elementID: elementID });
     } else {
       oldTags.push(newTag);
-      const updatedTags = oldTags;
-      updateTags({ updatedTags, elementID });
+      const updatedTagsArray = oldTags;
+      const data = { tags: updatedTagsArray };
+
+      mutateUpdateTagList({ data: data, elementID: elementID });
     }
   }
 
@@ -53,7 +63,6 @@ function VideoMenu({ onOpen, elementID, tags }) {
         >
           Remove
         </MenuItem>
-        <MenuItem onClick={() => refetch()}>Update</MenuItem>
         <MenuDivider />
         <MenuOptionGroup title="Tags" type="checkbox">
           {tagsData?.data.map((tag) => {

@@ -1,5 +1,5 @@
 import React from "react";
-import { useDeleteTags } from "./useTags";
+import { useDelete } from "./useQueries";
 
 import {
   Modal,
@@ -13,10 +13,13 @@ import {
 } from "@chakra-ui/react";
 
 function RemoveTagModal({ isOpen, onClose, elementId }) {
-  const { mutate } = useDeleteTags();
+  const { mutate: mutateDeleteTag } = useDelete({
+    key: "tags",
+    endpoint: "tags",
+  });
 
   function handleDelete(elementId) {
-    mutate(elementId);
+    mutateDeleteTag(elementId);
     onClose();
   }
 

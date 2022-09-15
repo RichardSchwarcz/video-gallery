@@ -1,18 +1,13 @@
 import React from "react";
-import { useGetVideo } from "./useVideo";
+import { useGet } from "./useQueries";
 
-import { Flex, Input, Button, Box } from "@chakra-ui/react";
+import { Flex, Input, Button, Box, Spinner } from "@chakra-ui/react";
 
 import VideoCard from "./VideoCard";
 import ControlsDrawer from "./ControlsDrawer";
-import { useEffect } from "react";
 
 function App() {
-  const { data: videoData, refetch } = useGetVideo();
-
-  useEffect(() => {
-    refetch();
-  }, []);
+  const { data: videoData } = useGet({ key: "videos", endpoint: "videos" });
 
   return (
     <>
@@ -26,6 +21,7 @@ function App() {
             Search
           </Button>
           {/* TODO add filter */}
+          {/* <Spinner size="sm" /> */}
         </Flex>
       </Flex>
       {/* board */}

@@ -1,6 +1,4 @@
 import React from "react";
-import AddVideo from "./AddVideo";
-import ManageTags from "./ManageTags";
 
 import {
   Drawer,
@@ -15,6 +13,8 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import AddVideo from "./AddVideo";
+import ManageTags from "./ManageTags";
 
 function ControlsDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();

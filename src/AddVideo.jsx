@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAddVideo } from "./useVideo";
+import { usePost } from "./useQueries";
 
 import {
   Button,
@@ -12,7 +12,10 @@ import { ChevronDownIcon, AddIcon } from "@chakra-ui/icons";
 
 function AddVideo() {
   const [url, setUrl] = useState("");
-  const { mutate } = useAddVideo();
+  const { mutate: mutateAddVideo } = usePost({
+    endpoint: "videos",
+    key: "videos",
+  });
 
   const { getDisclosureProps, getButtonProps } = useDisclosure();
   const buttonProps = getButtonProps();
@@ -29,7 +32,7 @@ function AddVideo() {
       tags: [],
       deleted: "false",
     };
-    mutate(video);
+    mutateAddVideo(video);
     const urlInput = document.getElementById("urlInput");
     urlInput.value = "";
   }
