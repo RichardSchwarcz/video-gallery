@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import postToDB from "./postToDB";
-import useFetch from "./useFetch";
+import { usePost } from "./useQueries";
+
 import {
   Button,
   Flex,
@@ -12,20 +12,19 @@ import { ChevronDownIcon, AddIcon } from "@chakra-ui/icons";
 import TagList from "./TagList";
 
 function ManageTags() {
-  const { getDisclosureProps, getButtonProps } = useDisclosure();
   const [tag, setTag] = useState("");
-  const { data, refetch } = useFetch("tags");
+  const { mutate: mutateAddTag } = usePost({ endpoint: "tags", key: "tags" });
 
+  const { getDisclosureProps, getButtonProps } = useDisclosure();
   const buttonProps = getButtonProps();
   const disclosureProps = getDisclosureProps();
 
-  async function handleClick() {
+  function handleAddTag() {
     let tagObj = {
       tag: tag,
       color: "gray",
     };
-    await postToDB(tagObj, "tags");
-    refetch();
+    mutateAddTag(tagObj);
     const tagInput = document.getElementById("tagInput");
     tagInput.value = "";
   }
@@ -42,7 +41,7 @@ function ManageTags() {
       </Button>
 
       <Flex {...disclosureProps}>
-        <IconButton icon={<AddIcon />} onClick={handleClick} variant="ghost" />
+        <IconButton icon={<AddIcon />} onClick={handleAddTag} variant="ghost" />
         <Input
           ml="4"
           variant="flushed"
@@ -51,7 +50,7 @@ function ManageTags() {
           id="tagInput"
         />
       </Flex>
-      <TagList {...disclosureProps} data={data} />
+      <TagList {...disclosureProps} />
     </>
   );
 }

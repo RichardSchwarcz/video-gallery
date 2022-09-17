@@ -1,19 +1,22 @@
 import React from "react";
-import { Flex, Input, Button, Box } from "@chakra-ui/react";
+import { useGet } from "./useQueries";
 
-import useFetch from "./useFetch";
+import { Flex, Input, Button, Box, Spinner } from "@chakra-ui/react";
 
 import VideoCard from "./VideoCard";
 import ControlsDrawer from "./ControlsDrawer";
 
 function App() {
-  const { data, refetch } = useFetch("videos");
+  const { data: videoData } = useGet({
+    key: "videos",
+    endpoint: "videos",
+  });
 
   return (
     <>
-      {/* Input panel */}
+      {/* Search panel */}
       <Flex justifyContent="center">
-        <ControlsDrawer refetch={refetch} />
+        <ControlsDrawer />
         <Flex w="100%" maxW="940px" mt="5" mb="5">
           <Input placeholder="Search" />
           {/* TODO add search icon */}
@@ -21,13 +24,18 @@ function App() {
             Search
           </Button>
           {/* TODO add filter */}
+          {/* <Spinner size="sm" /> */}
         </Flex>
       </Flex>
       {/* board */}
-      <Box maxW="1000px" m="auto">
+      <Box maxW="1000px" mx="auto" mb="5">
         <Flex w="100%" flexWrap="wrap" gap={5}>
-          {data.map((element) => {
-            return <VideoCard url={element.url} key={element.id} />;
+          {videoData?.data.map((element) => {
+            if (element.deleted === "false") {
+              return <VideoCard key={element.url} video={element} />;
+            } else {
+              return null;
+            }
           })}
         </Flex>
       </Box>

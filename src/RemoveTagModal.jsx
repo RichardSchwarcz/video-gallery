@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   Modal,
   ModalOverlay,
@@ -9,25 +11,22 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-function RemoveModal(props) {
-  // TODO instead of modal use chakra alert dialog
-  const { isOpen, onClose, onRemove, elementID } = props;
-
-  const data = { deleted: "true" };
+function RemoveTagModal({ isOpen, onClose, element, handleDelete }) {
+  // TODO axios base, package json proxy, setup proxy.js
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} blockScrollOnMount={false}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Remove this video?</ModalHeader>
+          <ModalHeader>Delete this tag?</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>Do you want to move this video to trash?</ModalBody>
+          <ModalBody>Do you want to delete this tag?</ModalBody>
           <ModalFooter>
             <Button
               colorScheme="red"
               mr={3}
-              onClick={() => onRemove({ data: data, elementID: elementID })}
+              onClick={() => handleDelete(element)}
             >
               Remove
             </Button>
@@ -41,4 +40,4 @@ function RemoveModal(props) {
   );
 }
 
-export default RemoveModal;
+export default RemoveTagModal;

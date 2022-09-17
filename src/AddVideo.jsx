@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import postToDB from "./postToDB";
+import { usePost } from "./useQueries";
+
 import {
   Button,
   Flex,
@@ -9,27 +10,29 @@ import {
 } from "@chakra-ui/react";
 import { ChevronDownIcon, AddIcon } from "@chakra-ui/icons";
 
-function AddVideo({ refetch }) {
-  const { getDisclosureProps, getButtonProps } = useDisclosure();
+function AddVideo() {
+  const [url, setUrl] = useState("");
+  const { mutate: mutateAddVideo } = usePost({
+    endpoint: "videos",
+    key: "videos",
+  });
 
+  const { getDisclosureProps, getButtonProps } = useDisclosure();
   const buttonProps = getButtonProps();
   const disclosureProps = getDisclosureProps();
-
-  const [url, setUrl] = useState("");
 
   function handleChange(e) {
     setUrl(e.target.value);
   }
 
-  async function handleClick() {
+  function handleClick() {
     const video = {
       name: "",
       url: url,
-      tags: "",
+      tags: [],
       deleted: "false",
     };
-    await postToDB(video, "videos");
-    refetch();
+    mutateAddVideo(video);
     const urlInput = document.getElementById("urlInput");
     urlInput.value = "";
   }

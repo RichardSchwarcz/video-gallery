@@ -1,6 +1,4 @@
 import React from "react";
-import AddVideo from "./AddVideo";
-import ManageTags from "./ManageTags";
 
 import {
   Drawer,
@@ -15,8 +13,10 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import AddVideo from "./AddVideo";
+import ManageTags from "./ManageTags";
 
-function ControlsDrawer({ refetch }) {
+function ControlsDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -28,7 +28,6 @@ function ControlsDrawer({ refetch }) {
         my="5"
         mr="5"
       />
-      {/* <HamburgerIcon onClick={onOpen} /> */}
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
@@ -37,7 +36,7 @@ function ControlsDrawer({ refetch }) {
 
           <DrawerBody>
             <Stack spacing="2">
-              <AddVideo refetch={refetch} />
+              <AddVideo />
               <ManageTags />
             </Stack>
           </DrawerBody>

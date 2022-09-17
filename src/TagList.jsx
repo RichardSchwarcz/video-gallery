@@ -1,39 +1,82 @@
-import {
-  Flex,
-  IconButton,
-  Input,
-  Tag,
-  Box,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItemOption,
-  MenuOptionGroup,
-} from "@chakra-ui/react";
-import { ChevronDownIcon, SmallCloseIcon } from "@chakra-ui/icons";
+import React, { useState } from "react";
+import { useGet, useDelete, useUpdate } from "./useQueries";
 
-function TagList({ data, ...disclosureProps }) {
-  // async function remove(element, type) {
-  //     await axios.put(`http://localhost:8000/${type}/${element.id}`, {
-  //       ...element,
-  //       deleted: "Deleted",
-  //     });
-  //     await refetch(type);
-  //   }
+import { Flex, IconButton, Tag, Box, useDisclosure } from "@chakra-ui/react";
+import { SmallCloseIcon } from "@chakra-ui/icons";
+import TagMenu from "./TagMenu";
+import RemoveTagModal from "./RemoveTagModal";
+import { getTaggedVideos, reduceTagSet, tagIsAssigned } from "./updateTagSet";
 
-  function handleRemove(e) {
-    e.preventdefault();
+function TagList({ ...disclosureProps }) {
+  const { data: tagsData } = useGet({
+    enableQuery: false,
+    key: "tags",
+    endpoint: "tags",
+  });
+
+  const { data: videoData } = useGet({
+    key: "videos",
+    endpoint: "videos",
+    enableQuery: false,
+  });
+
+  const { mutate: mutateDeleteTag } = useDelete({
+    key: "tags",
+    endpoint: "tags",
+  });
+
+  const { mutate: mutateRemoveAllTags } = useUpdate({
+    // rename tags assigned to videos
+    key: "videos",
+    endpoint: "videos",
+    invalidate: false,
+  });
+
+  const genericElement = { tag: "tag" };
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [outDatedElement, setOutDatedElement] = useState(genericElement);
+
+  function handleClick(element) {
+    setOutDatedElement(element);
+    onOpen();
+  }
+
+  function handleDelete(outDatedElement) {
+    const taggedVideos = getTaggedVideos(videoData, outDatedElement.tag);
+    if (tagIsAssigned(taggedVideos)) {
+      const updatedVideos = reduceTagSet(taggedVideos, outDatedElement.tag);
+
+      updatedVideos.forEach((video, index) => {
+        setTimeout(() => {
+          const updatedVideoTags = { tags: video.tags };
+
+          mutateRemoveAllTags({
+            data: updatedVideoTags,
+            elementID: video.id,
+          });
+
+          console.log(`deleted ${index + 1} out of ${updatedVideos.length}`);
+          const isDone = index + 1 === updatedVideos.length;
+          if (isDone) {
+            mutateDeleteTag(outDatedElement.id);
+            onClose();
+          }
+        }, index * 100);
+      });
+    } else {
+      mutateDeleteTag(outDatedElement.id);
+      onClose();
+    }
   }
 
   return (
     <Box {...disclosureProps}>
-      {data.map((element) => {
+      {tagsData?.data.map((element) => {
         return (
           <Flex
             key={element.tag}
             justifyContent="space-between"
             // TODO on hover bg
-            // bg="red"
             mx="10"
             my="2"
           >
@@ -43,61 +86,23 @@ function TagList({ data, ...disclosureProps }) {
                 variant="ghost"
                 size="xs"
                 // TODO on hover Red
+                onClick={() => handleClick(element)}
               />
               <Tag colorScheme={element.color} w="fit-content">
                 {element.tag}
               </Tag>
             </Flex>
-            <Menu closeOnSelect={false}>
-              <MenuButton
-                as={IconButton}
-                rightIcon={<ChevronDownIcon mr="2" />}
-                variant="ghost"
-                size="xs"
-                w="5"
-                // TODO get rid of `mr` and `w` workaround.
-                // Arrow is not horizontaly centered within its background
-              />
-              <MenuList>
-                <Input px="4" variant="flushed" placeholder="Rename" />
-
-                <MenuOptionGroup title="Colors" type="radio">
-                  <MenuItemOption
-                    value="red"
-                    onClick={() => console.log("red")}
-                  >
-                    <Tag colorScheme="red">red</Tag>
-                  </MenuItemOption>
-                  <MenuItemOption value="green">
-                    <Tag colorScheme="green">green</Tag>
-                  </MenuItemOption>
-                  <MenuItemOption value="blue">
-                    <Tag colorScheme="blue">blue</Tag>
-                  </MenuItemOption>
-                  <MenuItemOption value="purple">
-                    <Tag colorScheme="purple">purple</Tag>
-                  </MenuItemOption>
-                  <MenuItemOption value="yellow">
-                    <Tag colorScheme="yellow">yellow</Tag>
-                  </MenuItemOption>
-                  <MenuItemOption value="gray">
-                    <Tag colorScheme="gray">gray</Tag>
-                  </MenuItemOption>
-                  <MenuItemOption value="orange">
-                    <Tag colorScheme="orange">orange</Tag>
-                  </MenuItemOption>
-                  <MenuItemOption value="teal">
-                    <Tag colorScheme="teal">teal</Tag>
-                  </MenuItemOption>
-                  <MenuItemOption value="cyan">
-                    <Tag colorScheme="cyan">cyan</Tag>
-                  </MenuItemOption>
-                </MenuOptionGroup>
-              </MenuList>
-            </Menu>
+            {/* Drop down menu next to tag */}
+            <TagMenu element={element} />
           </Flex>
         );
       })}
+      <RemoveTagModal
+        isOpen={isOpen}
+        onClose={onClose}
+        element={outDatedElement}
+        handleDelete={handleDelete}
+      />
     </Box>
   );
 }
