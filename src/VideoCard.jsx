@@ -1,13 +1,13 @@
 import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
-import { useDelete, useGet } from "./useQueries";
+import { useUpdate, useGet } from "./useQueries";
 
 import { Flex, Image, Link, Tag, useDisclosure } from "@chakra-ui/react";
 import RemoveModal from "./RemoveModal";
 import thumbnailSource from "./thumbnailSource";
 import VideoMenu from "./VideoMenu";
 
-function VideoCard({ element }) {
-  const tagsCopy = element.tags.slice();
+function VideoCard({ video }) {
+  const tagsCopy = video.tags.slice();
 
   const [counter, setCounter] = useState(false);
   const [visibleTags, setVisibleTags] = useState(tagsCopy);
@@ -23,14 +23,15 @@ function VideoCard({ element }) {
     enableQuery: true,
   });
 
-  const { mutate: mutateRemoveVideo } = useDelete({
+  const { mutate: mutateRemoveVideo } = useUpdate({
     key: "videos",
     endpoint: "videos",
+    invalidate: true,
   });
 
   useEffect(() => {
-    setVisibleTags(element.tags);
-  }, [element.tags]);
+    setVisibleTags(video.tags);
+  }, [video.tags]);
 
   useLayoutEffect(() => {
     function handleOverflow() {
@@ -66,30 +67,36 @@ function VideoCard({ element }) {
     return tagsCopy.length - visibleTags.length;
   }
 
-  function findTagColor(fetchedTags, videoTag) {
-    // if (!tagsAreLoading) {
-    //   const matchingTag = fetchedTags.find((tag) => {
-    //     if (tag.tag === videoTag) {
-    //       return tag;
-    //     } else {
-    //       return null;
-    //     }
-    //   });
-    //   return matchingTag.color;
-    // }
+  function findTagColor(tags, videoTag) {
+    //   if (!tagsAreLoading) {
+    //     const matchingTag = tags.find((tag) => {
+    //       if (tag.tag === videoTag) {
+    //         return tag;
+    //       } else {
+    //         return null;
+    //       }
+    //     });
+    //     // return matchingTag.color;
+    //   }
+  }
+
+  function handleRemoveVideo(patchObject) {
+    // patch object { data, elementID }
+    mutateRemoveVideo(patchObject);
+    onClose();
   }
 
   return (
     <>
       <Flex w="235px" h="200px" bg="gray.400" rounded="lg" direction="column">
-        <Link href={element.url} isExternal>
+        <Link href={video.url} isExternal>
           <Image
             //thumbnail size is 1280x720. To scale it properly with fixed width... (235*720)/1280 = 132.2
             h="132.2px"
             w="235px"
             objectFit="cover"
             roundedTop="lg"
-            src={thumbnailSource(element.url)}
+            src={thumbnailSource(video.url)}
             alt="thumbnail"
           />
         </Link>
@@ -101,10 +108,9 @@ function VideoCard({ element }) {
         >
           Title
           <VideoMenu
-            element={element}
             onOpen={onOpen}
-            elementID={element.id}
-            tags={element.tags}
+            elementID={video.id}
+            elementTags={video.tags}
           />
         </Flex>
         <Flex mx="2" pb="2">
@@ -132,8 +138,8 @@ function VideoCard({ element }) {
         <RemoveModal
           isOpen={isOpen}
           onClose={onClose}
-          onRemove={mutateRemoveVideo}
-          elementID={element.id}
+          onRemove={handleRemoveVideo}
+          elementID={video.id}
         />
       </Flex>
     </>

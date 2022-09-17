@@ -14,10 +14,16 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import { ChevronDownIcon, CheckIcon } from "@chakra-ui/icons";
-import { useQueryClient } from "react-query";
+import {
+  getTaggedVideos,
+  emptyInput,
+  renameTagSet,
+  tagIsAssigned,
+} from "./updateTagSet";
 
 function TagMenu({ element }) {
-  const [rename, setRename] = useState("");
+  const [renamedTag, setRenamedTag] = useState("");
+  const outDatedTag = element.tag;
 
   const { mutate: mutateColor } = useUpdate({
     // change tag color
@@ -46,8 +52,6 @@ function TagMenu({ element }) {
     enableQuery: false,
   });
 
-  const queryClient = useQueryClient();
-
   const colors = [
     "red",
     "green",
@@ -60,66 +64,51 @@ function TagMenu({ element }) {
     "cyan",
   ];
 
-  function findTaggedVideos() {
-    // find all videos which have element.tag and return them
-    return videoData?.data
-      .map((video) => {
-        if (video.tags.includes(element.tag)) {
-          return video;
-        } else {
-          return null;
-        }
-      })
-      .filter((tag) => tag != null);
-  }
+  function handleRename(renamedTag, outDatedTag) {
+    const taggedVideos = getTaggedVideos(videoData, outDatedTag);
+    if (!emptyInput(renamedTag)) {
+      if (tagIsAssigned(taggedVideos)) {
+        // Rename tag under every video and return updated array
+        const updatedVideos = renameTagSet(
+          getTaggedVideos(videoData, outDatedTag),
+          outDatedTag,
+          renamedTag
+        );
 
-  function emptyInput(rename) {
-    if (rename === "") {
-      return true;
+        // Make patch requests for every video
+        updatedVideos.forEach((video, index) => {
+          // setTimeout solved server crashing
+          // TODO find out how to tweak a server to get rid of a timeout
+          setTimeout(() => {
+            const updatedVideoTags = { tags: video.tags };
+            mutateRenameAllTags({
+              data: updatedVideoTags,
+              elementID: video.id,
+            });
+
+            console.log(`renamed ${index + 1} out of ${updatedVideos.length}`);
+            const isDone = index + 1 === updatedVideos.length;
+            // At the end, rename tag in TagList
+            if (isDone) {
+              const updatedTagName = {
+                tag: renamedTag,
+              };
+
+              mutateRenameTag({ data: updatedTagName, elementID: element.id });
+            }
+          }, index * 100);
+        });
+      } else {
+        const updatedTagName = {
+          tag: renamedTag,
+        };
+
+        mutateRenameTag({ data: updatedTagName, elementID: element.id });
+      }
     } else {
-      return false;
-    }
-  }
-
-  function handleRename(rename) {
-    if (!emptyInput(rename)) {
-      const updatedVideos = replaceTags(findTaggedVideos());
-      // Rename tag under every video
-
-      updatedVideos.forEach((video, i) => {
-        setTimeout(() => {
-          const updatedVideoTags = { tags: video.tags };
-
-          mutateRenameAllTags({
-            data: updatedVideoTags,
-            elementID: video.id,
-          });
-
-          // console.log(i, "Delayed for 100ms");
-          console.log(`renaming ${i + 1} out of ${updatedVideos.length}`);
-          const isDone = i + 1 === updatedVideos.length;
-          if (isDone) {
-            const updatedTagName = {
-              tag: rename,
-            };
-
-            mutateRenameTag({ data: updatedTagName, elementID: element.id });
-          }
-        }, i * 100);
-      });
-    } else {
+      // TODO make component
       alert("empty input");
     }
-  }
-
-  function replaceTags(taggedVideos) {
-    // taggedVideos: array of objects
-    taggedVideos.forEach((video) => {
-      const toRenameIndex = video.tags.indexOf(element.tag);
-      video.tags[toRenameIndex] = rename;
-    });
-    return taggedVideos;
-    // returns array of objects (videos)
   }
 
   return (
@@ -138,14 +127,14 @@ function TagMenu({ element }) {
             placeholder="Rename"
             //TODO prefill existing name
             // on click close popup
-            onChange={(e) => setRename(e.target.value)}
+            onChange={(e) => setRenamedTag(e.target.value)}
           />
           <InputRightElement>
             <IconButton
               icon={<CheckIcon />}
               size="xs"
               variant="ghost"
-              onClick={() => handleRename(rename)}
+              onClick={() => handleRename(renamedTag, outDatedTag)}
             />
           </InputRightElement>
         </InputGroup>

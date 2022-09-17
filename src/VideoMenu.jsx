@@ -15,7 +15,7 @@ import {
 import { MdMoreVert } from "react-icons/md";
 import { DeleteIcon } from "@chakra-ui/icons";
 
-function VideoMenu({ onOpen, elementID, tags }) {
+function VideoMenu({ onOpen, elementID, elementTags }) {
   const { data: tagsData } = useGet({
     enableQuery: false,
     key: "tags",
@@ -29,7 +29,7 @@ function VideoMenu({ onOpen, elementID, tags }) {
   });
 
   function handleUpdateTags(newTag) {
-    const oldTags = tags.slice();
+    const oldTags = elementTags.slice();
 
     if (oldTags.includes(newTag)) {
       const updatedTagsArray = oldTags.filter((item) => item !== newTag);

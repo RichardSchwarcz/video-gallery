@@ -12,6 +12,9 @@ import {
 function RemoveModal(props) {
   // TODO instead of modal use chakra alert dialog
   const { isOpen, onClose, onRemove, elementID } = props;
+
+  const data = { deleted: "true" };
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -24,7 +27,7 @@ function RemoveModal(props) {
             <Button
               colorScheme="red"
               mr={3}
-              onClick={() => onRemove(elementID)}
+              onClick={() => onRemove({ data: data, elementID: elementID })}
             >
               Remove
             </Button>

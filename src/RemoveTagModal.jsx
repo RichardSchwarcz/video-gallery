@@ -1,5 +1,4 @@
 import React from "react";
-import { useDelete } from "./useQueries";
 
 import {
   Modal,
@@ -12,20 +11,9 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-function RemoveTagModal({ isOpen, onClose, elementId }) {
-  const { mutate: mutateDeleteTag } = useDelete({
-    key: "tags",
-    endpoint: "tags",
-  });
+function RemoveTagModal({ isOpen, onClose, element, handleDelete }) {
+  // TODO axios base, package json proxy, setup proxy.js
 
-  function handleDelete(elementId) {
-    mutateDeleteTag(elementId);
-    onClose();
-  }
-
-  // axios base
-  // package json proxy
-  // setup proxy.js
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} blockScrollOnMount={false}>
@@ -38,7 +26,7 @@ function RemoveTagModal({ isOpen, onClose, elementId }) {
             <Button
               colorScheme="red"
               mr={3}
-              onClick={() => handleDelete(elementId)}
+              onClick={() => handleDelete(element)}
             >
               Remove
             </Button>

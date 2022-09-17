@@ -7,7 +7,10 @@ import VideoCard from "./VideoCard";
 import ControlsDrawer from "./ControlsDrawer";
 
 function App() {
-  const { data: videoData } = useGet({ key: "videos", endpoint: "videos" });
+  const { data: videoData } = useGet({
+    key: "videos",
+    endpoint: "videos",
+  });
 
   return (
     <>
@@ -29,7 +32,7 @@ function App() {
         <Flex w="100%" flexWrap="wrap" gap={5}>
           {videoData?.data.map((element) => {
             if (element.deleted === "false") {
-              return <VideoCard key={element.url} element={element} />;
+              return <VideoCard key={element.url} video={element} />;
             } else {
               return null;
             }

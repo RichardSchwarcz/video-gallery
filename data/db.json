@@ -4,53 +4,18 @@
       "name": "",
       "url": "https://www.youtube.com/watch?v=PSzCtdM20Fc&t=989s&ab_channel=JackHerrington",
       "tags": [
-        "Climbing",
-        "RERE"
+        "NextJS",
+        "newTag",
+        "JS",
+        "jelka"
       ],
       "deleted": "false",
       "id": 1
     },
     {
       "name": "",
-      "url": "https://www.youtube.com/watch?v=iiADhChRriM&ab_channel=WebDevSimplified",
-      "tags": [
-        "NextJS",
-        "test",
-        "RERE",
-        "JS",
-        "newTag"
-      ],
-      "deleted": "true",
-      "id": 2
-    },
-    {
-      "name": "",
-      "url": "https://www.youtube.com/watch?v=m7DoTG4Myhs&ab_channel=AdamOndra",
-      "tags": [
-        "Climbing",
-        "RERE",
-        "guttenTag",
-        "newTag"
-      ],
-      "deleted": "true",
-      "id": 3
-    },
-    {
-      "name": "",
-      "url": "https://www.youtube.com/watch?v=ukecIFE6Now&ab_channel=JackHerrington",
-      "tags": [
-        "RERE",
-        "Climbing",
-        "newTag"
-      ],
-      "deleted": "true",
-      "id": 4
-    },
-    {
-      "name": "",
       "url": "https://www.youtube.com/watch?v=Q4dos7-gX68&t=1085s&ab_channel=JackHerrington",
       "tags": [
-        "RERE",
         "Climbing",
         "NextJS"
       ],
@@ -61,7 +26,6 @@
       "name": "",
       "url": "https://www.youtube.com/watch?v=JaM2rExmmqs&ab_channel=JackHerrington",
       "tags": [
-        "RERE",
         "NextJS",
         "Climbing"
       ],
@@ -72,7 +36,6 @@
       "name": "",
       "url": "https://www.youtube.com/watch?v=S2L4fatK0Ek&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=2&ab_channel=JackHerrington",
       "tags": [
-        "RERE",
         "Climbing",
         "NextJS"
       ],
@@ -85,8 +48,7 @@
       "tags": [
         "test",
         "NextJS",
-        "JS",
-        "RERE"
+        "JS"
       ],
       "deleted": "true",
       "id": 8
@@ -104,7 +66,6 @@
       "name": "",
       "url": "https://www.youtube.com/watch?v=ZD7viwwRLAw&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=6&ab_channel=JackHerrington",
       "tags": [
-        "RERE",
         "Climbing",
         "NextJS",
         "JS"
@@ -116,7 +77,6 @@
       "name": "",
       "url": "https://www.youtube.com/watch?v=emhwHjAsyss&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=7&ab_channel=JackHerrington",
       "tags": [
-        "RERE",
         "JS"
       ],
       "deleted": "true",
@@ -126,7 +86,6 @@
       "name": "",
       "url": "https://www.youtube.com/watch?v=nGZCL6Wd_zQ&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=8&ab_channel=JackHerrington",
       "tags": [
-        "RERE",
         "Climbing"
       ],
       "deleted": "true",
@@ -136,7 +95,6 @@
       "name": "",
       "url": "https://www.youtube.com/watch?v=NJxagi7K-D8&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=9&ab_channel=JackHerrington",
       "tags": [
-        "RERE",
         "Climbing"
       ],
       "deleted": "true",
@@ -146,22 +104,10 @@
       "name": "",
       "url": "https://www.youtube.com/watch?v=A3gN4ji5p6E&list=PLC3y8-rFHvwjTELCrPrcZlo6blLBUspd2&index=8&ab_channel=Codevolution",
       "tags": [
-        "Climbing",
-        "RERE"
+        "Climbing"
       ],
       "deleted": "true",
       "id": 14
-    },
-    {
-      "name": "",
-      "url": "https://www.youtube.com/watch?v=NYCG1o38oEQ&list=PLC3y8-rFHvwjTELCrPrcZlo6blLBUspd2&index=21&ab_channel=Codevolution",
-      "tags": [
-        "NextJS",
-        "Climbing",
-        "RERE"
-      ],
-      "deleted": "false",
-      "id": 15
     },
     {
       "name": "",
@@ -194,11 +140,6 @@
   ],
   "tags": [
     {
-      "tag": "RERE",
-      "color": "blue",
-      "id": 1
-    },
-    {
       "tag": "Climbing",
       "color": "green",
       "id": 3
@@ -224,9 +165,35 @@
       "id": 7
     },
     {
-      "tag": "guttenTag",
+      "tag": "jelka",
       "color": "yellow",
       "id": 8
+    }
+  ],
+  "playlists": [
+    {
+      "playlist": "RFEM",
+      "videos": [],
+      "deleted": "false",
+      "id": 1
+    },
+    {
+      "playlist": "test",
+      "videos": [],
+      "deleted": "false",
+      "id": 2
+    },
+    {
+      "playlist": "TETE",
+      "videos": [],
+      "deleted": "false",
+      "id": 3
+    },
+    {
+      "playlist": "RERE",
+      "videos": [],
+      "deleted": "false",
+      "id": 4
     }
   ]
 }
