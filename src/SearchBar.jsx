@@ -2,22 +2,17 @@ import React from "react";
 
 import { InputGroup, Input, InputLeftElement } from "@chakra-ui/react";
 
-function SearchBar({ handleQuery, tabProps }) {
+function SearchBar({ placeholder, leftPadding, width }) {
   return (
-    <InputGroup mb="2" borderColor="gray.400" w={tabProps.inputWidth} mx="auto">
+    <InputGroup mb="5" borderColor="gray.400" w={width}>
       <InputLeftElement
-        children={`./${tabProps.tab}/`}
+        children={placeholder}
         w="24"
         color="gray.500"
         pl="5"
         justifyContent="flex-start"
       />
-      <Input
-        placeholder="Search"
-        pl={tabProps.placeholderPadding}
-        borderRadius="16px"
-        onChange={(e) => handleQuery(e.target.value)}
-      />
+      <Input placeholder="Search" pl={leftPadding} borderRadius="16px" />
     </InputGroup>
   );
 }

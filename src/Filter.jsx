@@ -3,12 +3,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { useGet } from "./useQueries";
 
 import { Input, Flex, Tag, VStack } from "@chakra-ui/react";
-import filterTags from "./filterTags";
 
-function Filter({ handleUpdateFilter }) {
-  const [queryTags, setQueryTags] = useState("");
+function Filter() {
   const [showDropdown, setShowDropdown] = useState(false);
-  // const [tagSet, setTagSet] = useState([]);
 
   const inputRef = useRef(null);
   const menuRef = useRef(null);
@@ -37,9 +34,6 @@ function Filter({ handleUpdateFilter }) {
         placeholder="Filter"
         borderRadius="16px"
         borderColor="gray.400"
-        onChange={(e) => {
-          setQueryTags(e.target.value);
-        }}
         onClick={() => setShowDropdown(true)}
       />
       {showDropdown && (
@@ -59,7 +53,7 @@ function Filter({ handleUpdateFilter }) {
             e.stopPropagation();
           }}
         >
-          {filterTags(queryTags, tagsData)?.map((element) => {
+          {tagsData?.data.map((element) => {
             return (
               <Flex
                 key={element.tag}
@@ -71,7 +65,6 @@ function Filter({ handleUpdateFilter }) {
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleUpdateFilter(element);
                 }}
               >
                 <Tag colorScheme={element.color}>{element.tag}</Tag>

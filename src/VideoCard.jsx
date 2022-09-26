@@ -1,5 +1,5 @@
 import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
-import { useUpdate, useGet } from "./useQueries";
+import { useUpdate } from "./useQueries";
 
 import { Flex, Image, Link, Tag, useDisclosure } from "@chakra-ui/react";
 import RemoveModal from "./RemoveModal";
@@ -16,12 +16,6 @@ function VideoCard({ video }) {
   const countBox = useRef(null);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const { data: tagsData, isLoading: tagsAreLoading } = useGet({
-    key: "tags",
-    endpoint: "tags",
-    enableQuery: true,
-  });
 
   const { mutate: mutateRemoveVideo } = useUpdate({
     key: "videos",
@@ -67,19 +61,6 @@ function VideoCard({ video }) {
     return tagsCopy.length - visibleTags.length;
   }
 
-  function findTagColor(tags, videoTag) {
-    //   if (!tagsAreLoading) {
-    //     const matchingTag = tags.find((tag) => {
-    //       if (tag.tag === videoTag) {
-    //         return tag;
-    //       } else {
-    //         return null;
-    //       }
-    //     });
-    //     // return matchingTag.color;
-    //   }
-  }
-
   function handleRemoveVideo(patchObject) {
     // patch object { data, elementID }
     mutateRemoveVideo(patchObject);
@@ -117,13 +98,7 @@ function VideoCard({ video }) {
           <Flex ref={tagBox}>
             {visibleTags.map((videoTag) => {
               return (
-                <Tag
-                  key={videoTag}
-                  colorScheme={findTagColor(tagsData?.data, videoTag)}
-                  mx="0.5"
-                  size="sm"
-                  flex="none"
-                >
+                <Tag key={videoTag} mx="0.5" size="sm" flex="none">
                   {videoTag}
                 </Tag>
               );

@@ -3,49 +3,35 @@
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=PSzCtdM20Fc&t=989s&ab_channel=JackHerrington",
-      "tags": [
-        "NextJS",
-        "newTag",
-        "JS",
-        "jelka"
-      ],
+      "tags": ["NextJS", "newTag", "JS", "jelka"],
       "deleted": "false",
       "id": 1
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=Q4dos7-gX68&t=1085s&ab_channel=JackHerrington",
-      "tags": [
-        "NextJS"
-      ],
+      "tags": ["NextJS"],
       "deleted": "false",
       "id": 5
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=JaM2rExmmqs&ab_channel=JackHerrington",
-      "tags": [
-        "NextJS"
-      ],
+      "tags": ["NextJS"],
       "deleted": "false",
       "id": 6
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=S2L4fatK0Ek&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=2&ab_channel=JackHerrington",
-      "tags": [
-        "NextJS"
-      ],
-      "deleted": "true",
+      "tags": ["NextJS"],
+      "deleted": "false",
       "id": 7
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=8QtiqXew2QQ&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=4&ab_channel=JackHerrington",
-      "tags": [
-        "NextJS",
-        "JS"
-      ],
+      "tags": ["NextJS", "JS"],
       "deleted": "true",
       "id": 8
     },
@@ -59,19 +45,14 @@
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=ZD7viwwRLAw&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=6&ab_channel=JackHerrington",
-      "tags": [
-        "NextJS",
-        "JS"
-      ],
+      "tags": ["NextJS", "JS"],
       "deleted": "true",
       "id": 10
     },
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=emhwHjAsyss&list=PLNqp92_EXZBIKO8lqN3089jgZUi-FUFXX&index=7&ab_channel=JackHerrington",
-      "tags": [
-        "JS"
-      ],
+      "tags": ["JS"],
       "deleted": "true",
       "id": 11
     },
@@ -134,11 +115,7 @@
     {
       "name": "",
       "url": "https://www.youtube.com/watch?v=OtEqBBcPREY",
-      "tags": [
-        "NextJS",
-        "JS",
-        "newTag"
-      ],
+      "tags": ["NextJS", "JS", "newTag"],
       "deleted": "false",
       "id": 21
     }

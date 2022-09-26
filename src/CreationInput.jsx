@@ -10,28 +10,35 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import { AddIcon, CheckIcon, ArrowLeftIcon } from "@chakra-ui/icons";
+import { useLocation } from "react-router-dom";
 
-function CreationInput({ tabProps }) {
+function CreationInput() {
   const [switchButton, setSwitchButton] = useState(true);
   const [input, setInput] = useState("");
+  const location = useLocation();
 
   const { mutate: mutateAddVideo } = usePost({
     endpoint: "videos",
     key: "videos",
   });
-  const { mutate: mutateAddTag } = usePost({ endpoint: "tags", key: "tags" });
+
+  const { mutate: mutateAddTag } = usePost({
+    endpoint: "tags",
+    key: "tags",
+  });
 
   function handleToggleClick() {
     setSwitchButton(!switchButton);
   }
 
   function handleCreateClick() {
-    if (tabProps.buttonText === "Add new video") {
+    if (location.pathname === "/videos") {
       addVideo();
-    } else if (tabProps.buttonText === "Create new tag") {
+    } else if (location.pathname === "/tags") {
       createTag();
     }
     clearInput();
+    handleToggleClick();
   }
 
   function createTag() {
@@ -39,6 +46,7 @@ function CreationInput({ tabProps }) {
       tag: input,
       color: "gray",
     };
+    console.log("hej");
     mutateAddTag(tagObj);
   }
 
@@ -57,6 +65,24 @@ function CreationInput({ tabProps }) {
     input.value = "";
   }
 
+  function buttonName(pathname) {
+    if (pathname === "/videos") {
+      return "Add new Video";
+    } else if (pathname === "/tags") {
+      return "Create new Tag";
+    }
+    return;
+  }
+
+  function placeholder(pathname) {
+    if (pathname === "/videos") {
+      return "Paste URL";
+    } else if (pathname === "/tags") {
+      return "Enter name";
+    }
+    return;
+  }
+
   return (
     <>
       {switchButton && (
@@ -68,7 +94,7 @@ function CreationInput({ tabProps }) {
           colorScheme="green"
           variant="outline"
         >
-          {tabProps.buttonText}
+          {buttonName(location.pathname)}
         </Button>
       )}
       {!switchButton && (
@@ -103,7 +129,7 @@ function CreationInput({ tabProps }) {
             borderRadius="16px"
             borderColor="gray.400"
             variant="outline"
-            placeholder={tabProps.inputPlaceholder}
+            placeholder={placeholder(location.pathname)}
             id="input"
           />
         </InputGroup>
