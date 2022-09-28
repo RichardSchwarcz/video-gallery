@@ -1,7 +1,14 @@
 import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
 import { useUpdate } from "./useQueries";
 
-import { Flex, Image, Link, Tag, useDisclosure } from "@chakra-ui/react";
+import {
+  Flex,
+  Image,
+  Link,
+  Tag,
+  useDisclosure,
+  keyframes,
+} from "@chakra-ui/react";
 import RemoveModal from "./RemoveModal";
 import thumbnailSource from "./thumbnailSource";
 import VideoMenu from "./VideoMenu";
@@ -69,7 +76,15 @@ function VideoCard({ video }) {
 
   return (
     <>
-      <Flex w="235px" h="200px" bg="gray.400" rounded="lg" direction="column">
+      <Flex
+        w="235px"
+        h="200px"
+        rounded="lg"
+        direction="column"
+        boxShadow="lg"
+        bgGradient="linear(to-tr, gray.300,yellow.400, pink.400)"
+        bgAttachment="fixed"
+      >
         <Link href={video.url} isExternal>
           <Image
             //thumbnail size is 1280x720. To scale it properly with fixed width... (235*720)/1280 = 132.2

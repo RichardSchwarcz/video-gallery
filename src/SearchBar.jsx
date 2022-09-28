@@ -12,7 +12,12 @@ function SearchBar({ placeholder, leftPadding, width }) {
         pl="5"
         justifyContent="flex-start"
       />
-      <Input placeholder="Search" pl={leftPadding} borderRadius="16px" />
+      <Input
+        placeholder="Search"
+        pl={leftPadding}
+        borderRadius="16px"
+        borderColor="gray.500"
+      />
     </InputGroup>
   );
 }

@@ -70,6 +70,8 @@ function CreationInput() {
       return "Add new Video";
     } else if (pathname === "/tags") {
       return "Create new Tag";
+    } else if (pathname === "/playlists") {
+      return "Create new Playlist";
     }
     return;
   }
@@ -78,6 +80,8 @@ function CreationInput() {
     if (pathname === "/videos") {
       return "Paste URL";
     } else if (pathname === "/tags") {
+      return "Enter name";
+    } else if (pathname === "/playlists") {
       return "Enter name";
     }
     return;
@@ -91,7 +95,6 @@ function CreationInput() {
           ml="5"
           borderRadius="16px"
           leftIcon={<AddIcon />}
-          colorScheme="green"
           variant="outline"
         >
           {buttonName(location.pathname)}
@@ -127,10 +130,12 @@ function CreationInput() {
             }}
             pl="14"
             borderRadius="16px"
-            borderColor="gray.400"
+            bg="gray.50"
+            borderColor="gray.100"
             variant="outline"
             placeholder={placeholder(location.pathname)}
             id="input"
+            boxShadow="lg"
           />
         </InputGroup>
       )}

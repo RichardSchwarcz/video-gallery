@@ -4,15 +4,17 @@ function UnderConstruction() {
     <Flex
       mx="auto"
       mt="20"
-      bg="red.300 "
-      w="80"
+      bg="red.100 "
+      w="96"
       justifyContent="center"
       h="20"
       alignItems="center"
       rounded="lg"
+      textAlign="center"
     >
       <Text as="b" fontSize="xl">
-        Sorry, I'm working on that :)
+        Sorry,
+        <br /> page under construction 👷
       </Text>
     </Flex>
   );

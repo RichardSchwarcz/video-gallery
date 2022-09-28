@@ -33,7 +33,7 @@ function Filter() {
         ref={inputRef}
         placeholder="Filter"
         borderRadius="16px"
-        borderColor="gray.400"
+        borderColor="gray.500"
         onClick={() => setShowDropdown(true)}
       />
       {showDropdown && (

@@ -1,31 +1,52 @@
 import React from "react";
 
-import { Tabs, TabList, Tab, Icon } from "@chakra-ui/react";
+import {
+  Tabs,
+  TabList,
+  Icon,
+  useTab,
+  useMultiStyleConfig,
+  Button,
+} from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
 import { VscHome } from "react-icons/vsc";
 
 function Navbar() {
+  const CustomTab = React.forwardRef((props, ref) => {
+    // 1. Reuse the `useTab` hook
+    const tabProps = useTab({ ...props, ref });
+
+    // 2. Hook into the Tabs `size`, `variant`, props
+    const styles = useMultiStyleConfig("NavTab", tabProps);
+
+    return (
+      <Button __css={styles} {...tabProps}>
+        {tabProps.children}
+      </Button>
+    );
+  });
+
   return (
     <Tabs variant="soft-rounded" colorScheme="green">
       <TabList>
         <Link to="/">
-          <Tab borderRadius="16px">
-            <Icon as={VscHome} mr="2" />
+          <CustomTab variant="primary">
+            {/* <Icon as={VscHome} mr="2" /> */}
             Home
-          </Tab>
+          </CustomTab>
         </Link>
         <Link to="videos">
-          <Tab borderRadius="16px">Videos</Tab>
+          <CustomTab variant="primary">Videos</CustomTab>
         </Link>
         <Link to="/playlists">
-          <Tab borderRadius="16px">Playlists</Tab>
+          <CustomTab variant="primary">Playlists</CustomTab>
         </Link>
         <Link to="/groups">
-          <Tab borderRadius="16px">Groups</Tab>
+          <CustomTab variant="primary">Groups</CustomTab>
         </Link>
         <Link to="tags">
-          <Tab borderRadius="16px">Tags</Tab>
+          <CustomTab variant="primary">Tags</CustomTab>
         </Link>
       </TabList>
     </Tabs>

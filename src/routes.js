@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import VideosPage from "./pages/VideosPage";
 import TagsPage from "./pages/TagsPage";
+import PlaylistsPage from "./pages/PlaylistsPage";
 import UnderConstruction from "./pages/UnderConstruction";
 
 export const router = createBrowserRouter([
@@ -16,7 +17,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "playlists",
-        element: <UnderConstruction />,
+        element: <PlaylistsPage />,
       },
       {
         path: "groups",
