@@ -69,7 +69,6 @@ function VideoCard({ video }) {
   }
 
   function handleRemoveVideo(patchObject) {
-    // patch object { data, elementID }
     mutateRemoveVideo(patchObject);
     onClose();
   }

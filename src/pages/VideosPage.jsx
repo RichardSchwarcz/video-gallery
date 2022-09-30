@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useGet } from "../useQueries";
 import { Flex } from "@chakra-ui/react";
 
@@ -8,10 +8,13 @@ import Filter from "../Filter";
 import SearchBar from "../SearchBar";
 
 function VideosPage() {
+  const [tags, setTags] = useState([]);
+
   const { data: videoData } = useGet({
     key: "videos",
     endpoint: "videos",
   });
+
   return (
     <Flex justifyContent="center" flexDir="column" maxW="1000px" mx="auto">
       <Flex justifyContent="space-between">
@@ -20,9 +23,9 @@ function VideosPage() {
           leftPadding={"5.25rem"}
           width={"745px"}
         />
-        <Filter />
+        <Filter setTags={setTags} tags={tags} />
       </Flex>
-      <TagsStack />
+      {tags.length !== 0 && <TagsStack tags={tags} setTags={setTags} />}
 
       <Flex w="100%" flexWrap="wrap" gap={5}>
         {videoData?.data.map((element) => {

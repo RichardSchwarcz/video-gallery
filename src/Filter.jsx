@@ -4,7 +4,7 @@ import { useGet } from "./useQueries";
 
 import { Input, Flex, Tag, VStack } from "@chakra-ui/react";
 
-function Filter() {
+function Filter({ setTags }) {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const inputRef = useRef(null);
@@ -59,12 +59,14 @@ function Filter() {
                 key={element.tag}
                 w="100%"
                 p="1"
+                justifyContent="space-between"
                 borderRadius="0.375rem"
                 _hover={{
                   background: "gray.50",
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
+                  setTags((tag) => [...tag, element]);
                 }}
               >
                 <Tag colorScheme={element.color}>{element.tag}</Tag>
